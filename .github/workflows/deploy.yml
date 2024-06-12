@@ -36,7 +36,8 @@ jobs:
       - name: Install Yandex Cloud CLI
         run: |
           curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
-          yc init --token=${{ secrets.YC_TOKEN }}
+          echo "export PATH=\$PATH:/home/runner/yandex-cloud" >> $HOME/.bashrc
+          source $HOME/.bashrc
 
       - name: Configure Yandex Cloud CLI
         run: |
@@ -55,4 +56,3 @@ jobs:
           yc compute instance add-metadata \
             --name flask-app-vm \
             --metadata-from-file user-data=deploy-script.sh
-
