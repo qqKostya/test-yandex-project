@@ -53,12 +53,15 @@ jobs:
 
       - name: Create VM and deploy project
         run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
           /home/runner/yandex-cloud/bin/yc compute instance create \
             --name flask-app-vm \
             --zone ru-central1-a \
             --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
             --create-boot-disk image-family=ubuntu-2004-lts,size=10GB \
-            --ssh-key ~/.ssh/id_rsa.pub
+            --ssh-key ~/.ssh/id_rsa
 
           /home/runner/yandex-cloud/bin/yc compute instance add-metadata \
             --name flask-app-vm \
