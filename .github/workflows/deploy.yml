@@ -39,6 +39,10 @@ jobs:
           echo "export PATH=\$PATH:/home/runner/yandex-cloud/bin" >> $HOME/.bashrc
           source $HOME/.bashrc
 
+      - name: Set Yandex Cloud OAuth token
+        run: |
+          /home/runner/yandex-cloud/bin/yc config set token ${{ secrets.YC_OAUTH_TOKEN }}
+
       - name: Check Yandex Cloud CLI directory
         run: ls -l /home/runner/yandex-cloud/bin
 
@@ -55,7 +59,7 @@ jobs:
             --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
             --create-boot-disk image-family=ubuntu-2004-lts,size=10GB \
             --ssh-key ~/.ssh/id_rsa.pub
-      
+
           /home/runner/yandex-cloud/bin/yc compute instance add-metadata \
             --name flask-app-vm \
             --metadata-from-file user-data=deploy-script.sh
