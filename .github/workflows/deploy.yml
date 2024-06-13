@@ -52,9 +52,11 @@ jobs:
           /home/runner/yandex-cloud/bin/yc config set folder-id ${{ secrets.YC_FOLDER_ID }}
 
       - name: Create VM and deploy project
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
 
