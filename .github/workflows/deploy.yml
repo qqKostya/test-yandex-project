@@ -53,7 +53,8 @@ jobs:
 
       - name: Create and configure SSH keys
         run: |
-          ssh-keygen -t rsa -N ""
+          mkdir -p ~/.ssh
+          ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
 
       - name: Create VM and deploy project
         run: |
