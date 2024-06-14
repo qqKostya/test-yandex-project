@@ -8,5 +8,5 @@ users:
   sudo: 'ALL=(ALL) NOPASSWD:ALL'
   shell: /bin/bash
   ssh_authorized_keys:
-  - secrets.SSH_PRIVATE_KEY
+  - ${{ secrets.SSH_PRIVATE_KEY }}
 runcmd: []
