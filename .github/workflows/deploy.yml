@@ -65,7 +65,6 @@ jobs:
             --zone ru-central1-a \
             --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
             --create-boot-disk image-family=ubuntu-2004-lts,size=10GB \
-            --ssh-key ~/.ssh/id_rsa.pub \
             --metadata-from-file ssh-keys=sshkeys.txt
 
           /home/runner/yandex-cloud/bin/yc compute instance add-metadata \
