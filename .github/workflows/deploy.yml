@@ -48,24 +48,24 @@ jobs:
           /home/runner/yandex-cloud/bin/yc config set cloud-id ${{ secrets.YC_CLOUD_ID }}
           /home/runner/yandex-cloud/bin/yc config set folder-id ${{ secrets.YC_FOLDER_ID }}
 
-      - name: Create VM and deploy project
-        run: |
-          echo "#cloud-config
-          datasource:
-            Ec2:
-              strict_id: false
-          ssh_pwauth: no
-          users:
-          - name: qqkazakov
-            sudo: 'ALL=(ALL) NOPASSWD:ALL'
-            shell: /bin/bash
-            ssh_authorized_keys:
-            - ${{ secrets.SSH_PRIVATE_KEY }}
-          runcmd: []" > metadata.yaml
+      # - name: Create VM and deploy project
+      #   run: |
+      #     echo "#cloud-config
+      #     datasource:
+      #       Ec2:
+      #         strict_id: false
+      #     ssh_pwauth: no
+      #     users:
+      #     - name: qqkazakov
+      #       sudo: 'ALL=(ALL) NOPASSWD:ALL'
+      #       shell: /bin/bash
+      #       ssh_authorized_keys:
+      #       - ${{ secrets.SSH_PRIVATE_KEY }}
+      #     runcmd: []" > metadata.yaml
 
-          /home/runner/yandex-cloud/bin/yc compute instance create \
-            --name flask-app-vm \
-            --zone ru-central1-a \
-            --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
-            --create-boot-disk image-family=ubuntu-2004-lts,size=10GB \
-            --metadata-from-file user-data=metadata.yaml
+      #     /home/runner/yandex-cloud/bin/yc compute instance create \
+      #       --name flask-app-vm \
+      #       --zone ru-central1-a \
+      #       --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 \
+      #       --create-boot-disk image-family=ubuntu-2004-lts,size=10GB \
+      #       --metadata-from-file user-data=metadata.yaml
